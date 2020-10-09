@@ -1,6 +1,7 @@
 package com.sboo;
 
 import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +19,7 @@ public class HelloServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         System.out.println("doGet");
 
-        ApplicationContext context = (ApplicationContext)getServletContext().getAttribute("applicationContext");
+        ApplicationContext context = (ApplicationContext)getServletContext().getAttribute(WebApplicationContext.ROOT_WEB_APPLICATION_CONTEXT_ATTRIBUTE);
         HelloService helloService = context.getBean(HelloService.class);
 
         resp.getWriter().println("<!DOCTYPE html>");

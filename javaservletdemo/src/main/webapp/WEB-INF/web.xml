@@ -5,8 +5,18 @@
 <web-app>
     <display-name>Java Servlet Demo</display-name>
 
+    <context-param>
+        <param-name>contextClass</param-name>
+        <param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>com.sboo.WebConfig</param-value>
+    </context-param>
+
     <listener>
-        <listener-class>com.sboo.MyListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
     
     <servlet>
