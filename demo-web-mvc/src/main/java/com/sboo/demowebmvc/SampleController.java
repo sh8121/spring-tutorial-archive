@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/hello")
 public class SampleController {
-    @RequestMapping({"/sboo", "sanghoon"})
+    @RequestMapping("/sboo/?")
+//    @RequestMapping("/sboo/*")
+//    @RequestMapping("/sboo/**")
     @ResponseBody
     public String helloSboo() {
-        return "hello sboo";
+        return "hellosboo";
     }
 }

@@ -17,12 +17,12 @@ class SampleControllerTest {
 
     @Test
     public void helloTest() throws Exception {
-        mockMvc.perform(get("/hello/sboo"))
+        mockMvc.perform(get("/hello/sboo/a"))
                 .andDo(print())
                 .andExpect(status().isOk());
 
-        mockMvc.perform(get("/hello/sanghoon"))
+        mockMvc.perform(get("/hello/sboo/aa"))
                 .andDo(print())
-                .andExpect(status().isOk());
+                .andExpect(status().isNotFound());
     }
 }
