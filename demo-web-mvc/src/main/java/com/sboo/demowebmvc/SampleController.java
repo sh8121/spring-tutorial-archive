@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping(method = {RequestMethod.GET, RequestMethod.POST})
+@RequestMapping("/hello")
 public class SampleController {
-    @RequestMapping("/hello")
+    @RequestMapping({"/sboo", "sanghoon"})
     @ResponseBody
-    public String hello() {
-        return "hello";
+    public String helloSboo() {
+        return "hello sboo";
     }
 }
