@@ -9,7 +9,13 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.oxm.Marshaller;
 import org.springframework.test.web.servlet.MockMvc;
+
+import javax.xml.transform.Result;
+import javax.xml.transform.stream.StreamResult;
+import java.io.IOException;
+import java.io.StringWriter;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -26,6 +32,9 @@ class SampleControllerTest {
 
     @Autowired
     ObjectMapper objectMapper;
+
+    @Autowired
+    Marshaller marshaller;
 
     @Test
     public void hello() throws Exception {
@@ -72,5 +81,26 @@ class SampleControllerTest {
                         .content(jsonString))
                 .andDo(print())
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    public void xmlMessage() throws Exception {
+        Person person = new Person();
+        person.setId(2019L);
+        person.setName("Sang Hoon");
+
+        StringWriter stringWriter = new StringWriter();
+        Result result = new StreamResult(stringWriter);
+        marshaller.marshal(person, result);
+        String xmlString = stringWriter.toString();
+
+        mockMvc.perform(get("/jsonMessage")
+                        .contentType(MediaType.APPLICATION_XML)
+                        .accept(MediaType.APPLICATION_XML)
+                        .content(xmlString))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(xpath("person/name").string("Sang Hoon"))
+                .andExpect(xpath("person/id").string("2019"));
     }
 }
