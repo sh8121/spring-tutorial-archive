@@ -20,7 +20,7 @@ class SampleControllerTest {
     @Test
     public void helloTest() throws Exception {
         mockMvc.perform(get("/hello")
-                        .contentType(MediaType.APPLICATION_JSON))
+                        .param("name", "spring"))
                 .andDo(print())
                 .andExpect(status().isOk());
     }
