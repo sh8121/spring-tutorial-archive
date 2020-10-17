@@ -27,6 +27,6 @@ class SampleControllerTest {
 
         mockMvc.perform(post("/hello"))
                 .andDo(print())
-                .andExpect(status().isMethodNotAllowed());
+                .andExpect(status().isOk());
     }
 }
