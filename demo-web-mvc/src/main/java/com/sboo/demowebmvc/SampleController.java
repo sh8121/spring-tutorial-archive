@@ -7,13 +7,16 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class SampleController {
-//    @GetMapping(value = "/hello", headers = HttpHeaders.FROM)
-//    @GetMapping(value = "/hello", headers = "!" + HttpHeaders.FROM)
-//    @GetMapping(value = "/hello", headers = HttpHeaders.FROM + "=" + "111")
-//    @GetMapping(value = "/hello", params = "name")
-    @GetMapping(value = "/hello", params = "name=spring")
+
+    @GetMapping("/hello")
     @ResponseBody
     public String hello() {
+        return "hello";
+    }
+
+    @PostMapping("/hello")
+    @ResponseBody
+    public String helloPost() {
         return "hello";
     }
 }
