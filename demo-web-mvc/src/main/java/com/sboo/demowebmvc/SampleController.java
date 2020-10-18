@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/hello")
 public class SampleController {
-    @RequestMapping("/{name}")
+    @RequestMapping("/{name:[a-z]+}")
     @ResponseBody
     public String hello(@PathVariable String name) {
         return "hello " + name;

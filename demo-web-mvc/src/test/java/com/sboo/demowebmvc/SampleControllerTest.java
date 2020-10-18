@@ -22,5 +22,9 @@ class SampleControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello playboy"));
+
+        mockMvc.perform(get("/hello/playboy1"))
+                .andDo(print())
+                .andExpect(status().isNotFound());
     }
 }
