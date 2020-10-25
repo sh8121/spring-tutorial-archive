@@ -1,21 +1,16 @@
 package com.sboo.demowebmvc;
 
 import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
 public class Event {
 
-    interface ValidateLimit {}
-    interface ValidateName {}
-
-    @NotNull
     private Integer id;
 
-    @NotNull(groups = ValidateName.class)
+    @NotBlank
     private String name;
 
-    @NotNull(groups = ValidateLimit.class)
-    @Min(value = 0, groups = ValidateLimit.class)
+    @Min(0)
     private Integer limit;
 
     public Integer getId() {

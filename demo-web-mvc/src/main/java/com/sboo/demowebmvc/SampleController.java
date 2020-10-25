@@ -1,14 +1,15 @@
 package com.sboo.demowebmvc;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.validation.Valid;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SampleController {
@@ -21,27 +22,25 @@ public class SampleController {
         return "/events/form";
     }
 
-    @GetMapping("/events")
-    @ResponseBody
-    public Event getEvent(@Valid @ModelAttribute Event event, BindingResult bindingResult) {
+    @PostMapping("/events")
+    public String createEvent(@Validated @ModelAttribute Event event, BindingResult bindingResult) {
         if(bindingResult.hasErrors()) {
-            System.out.println(("===========ERROR=========="));
-            bindingResult.getAllErrors().forEach(objectError ->
-                    System.out.println(objectError.toString())
-            );
+            return "/events/form";
         }
-        return event;
+        return "redirect:/events/list";
     }
 
-    @PostMapping("/events/name/{name}")
-    @ResponseBody
-    public Event postEvent(@Validated({Event.ValidateName.class, Event.ValidateLimit.class}) @ModelAttribute Event event, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            System.out.println(("===========ERROR=========="));
-            bindingResult.getAllErrors().forEach(objectError ->
-                    System.out.println(objectError.toString())
-            );
-        }
-        return event;
+    @GetMapping("/events/list")
+    public String getEvents(Model model) {
+        Event event = new Event();
+        event.setName("spring");
+        event.setLimit(10);
+
+        List<Event> eventList = new ArrayList<>();
+        eventList.add(event);
+
+        model.addAttribute(eventList);
+
+        return "/events/list";
     }
 }

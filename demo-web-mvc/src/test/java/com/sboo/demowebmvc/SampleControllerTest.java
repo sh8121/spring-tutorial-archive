@@ -24,22 +24,11 @@ class SampleControllerTest {
     }
 
     @Test
-    public void getEvent() throws Exception {
-        mockMvc.perform(get("/events"))
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("id").isEmpty())
-                .andExpect(jsonPath("name").isEmpty())
-                .andExpect(jsonPath("limit").isEmpty());
-    }
-
-    @Test
     public void postEvent() throws Exception {
-        mockMvc.perform(post("/events/name/sboo")
-                        .param("limit", "-10"))
+        mockMvc.perform(post("/events")
+                        .param("name", "sboo")
+                        .param("limit", "10"))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("sboo"))
-                .andExpect(jsonPath("limit").value(-10));
+                .andExpect(status().is3xxRedirection());
     }
 }
