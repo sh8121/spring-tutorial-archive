@@ -21,12 +21,7 @@ public class SampleController {
 
     @GetMapping("/events")
     @ResponseBody
-    public Event getEvent(@ModelAttribute Event event, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()){
-            bindingResult.getAllErrors().forEach(objectError ->
-                    System.out.println(objectError.toString())
-            );
-        }
+    public Event getEvent(@ModelAttribute Event event) {
         return event;
     }
 
