@@ -3,6 +3,7 @@ package com.sboo.demowebmvc;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
@@ -20,7 +21,12 @@ public class SampleController {
 
     @GetMapping("/events")
     @ResponseBody
-    public Event getEvent(@ModelAttribute Event event) {
+    public Event getEvent(@ModelAttribute Event event, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            bindingResult.getAllErrors().forEach(objectError ->
+                    System.out.println(objectError.toString())
+            );
+        }
         return event;
     }
 

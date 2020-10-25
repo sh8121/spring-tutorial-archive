@@ -25,10 +25,10 @@ class SampleControllerTest {
 
     @Test
     public void getEvent() throws Exception {
-        mockMvc.perform(get("/events?id=5&name=SangHoon&limit=10"))
+        mockMvc.perform(get("/events?id=sboo&name=SangHoon&limit=10"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("id").value(5))
+                .andExpect(jsonPath("id").isEmpty())
                 .andExpect(jsonPath("name").value("SangHoon"))
                 .andExpect(jsonPath("limit").value(10));
     }
