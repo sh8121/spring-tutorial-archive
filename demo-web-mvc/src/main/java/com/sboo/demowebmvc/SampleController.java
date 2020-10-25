@@ -18,9 +18,15 @@ public class SampleController {
         return "/events/form";
     }
 
-    @PostMapping("/events/name/{name}")
+    @GetMapping("/events")
     @ResponseBody
     public Event getEvent(@ModelAttribute Event event) {
+        return event;
+    }
+
+    @PostMapping("/events/name/{name}")
+    @ResponseBody
+    public Event postEvent(@ModelAttribute Event event) {
         return event;
     }
 }
