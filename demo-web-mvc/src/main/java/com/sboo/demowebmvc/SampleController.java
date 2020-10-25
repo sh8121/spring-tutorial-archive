@@ -18,13 +18,9 @@ public class SampleController {
         return "/events/form";
     }
 
-    @PostMapping("/events")
+    @PostMapping("/events/name/{name}")
     @ResponseBody
-    public Event getEvent(@RequestParam Map paramMap) {
-        //Map or MultiValueMap
-        Event event = new Event();
-        event.setName((String)paramMap.get("name"));
-        event.setLimit(Integer.parseInt((String)paramMap.get("limit")));
+    public Event getEvent(@ModelAttribute Event event) {
         return event;
     }
 }

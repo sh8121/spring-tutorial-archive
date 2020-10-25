@@ -25,12 +25,9 @@ class SampleControllerTest {
 
     @Test
     public void postEvent() throws Exception {
-        mockMvc.perform(post("/events")
-                        .param("name", "sboo")
-                        .param("limit", "20"))
+        mockMvc.perform(post("/events/name/sboo"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("name").value("sboo"))
-                .andExpect(jsonPath("limit").value(20));
+                .andExpect(jsonPath("name").value("sboo"));
     }
 }
