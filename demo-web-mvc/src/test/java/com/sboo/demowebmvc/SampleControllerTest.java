@@ -27,8 +27,9 @@ class SampleControllerTest {
     public void postEvent() throws Exception {
         mockMvc.perform(post("/events")
                         .param("name", "sboo")
-                        .param("limit", "10"))
+                        .param("limit", "-10"))
                 .andDo(print())
-                .andExpect(status().is3xxRedirection());
+                .andExpect(status().isOk())
+                .andExpect(model().hasErrors());
     }
 }
