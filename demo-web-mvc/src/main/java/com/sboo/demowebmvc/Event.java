@@ -1,5 +1,6 @@
 package com.sboo.demowebmvc;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 public class Event {
@@ -8,6 +9,7 @@ public class Event {
     @NotNull
     private String name;
     @NotNull
+    @Min(0)
     private Integer limit;
 
     public Integer getId() {

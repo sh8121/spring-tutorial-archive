@@ -34,7 +34,13 @@ public class SampleController {
 
     @PostMapping("/events/name/{name}")
     @ResponseBody
-    public Event postEvent(@ModelAttribute Event event) {
+    public Event postEvent(@Valid @ModelAttribute Event event, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            System.out.println(("===========ERROR=========="));
+            bindingResult.getAllErrors().forEach(objectError ->
+                    System.out.println(objectError.toString())
+            );
+        }
         return event;
     }
 }
