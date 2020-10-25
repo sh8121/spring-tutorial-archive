@@ -1,8 +1,13 @@
 package com.sboo.demowebmvc;
 
+import javax.validation.constraints.NotNull;
+
 public class Event {
+    @NotNull
     private Integer id;
+    @NotNull
     private String name;
+    @NotNull
     private Integer limit;
 
     public Integer getId() {

@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.Map;
 
 @Controller
@@ -21,7 +22,13 @@ public class SampleController {
 
     @GetMapping("/events")
     @ResponseBody
-    public Event getEvent(@ModelAttribute Event event) {
+    public Event getEvent(@Valid @ModelAttribute Event event, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()) {
+            System.out.println(("===========ERROR=========="));
+            bindingResult.getAllErrors().forEach(objectError ->
+                    System.out.println(objectError.toString())
+            );
+        }
         return event;
     }
 
