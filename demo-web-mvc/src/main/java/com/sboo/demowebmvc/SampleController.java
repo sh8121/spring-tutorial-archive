@@ -15,10 +15,7 @@ import java.util.List;
 public class SampleController {
 
     @GetMapping("/events/form")
-    public String eventsForm(Model model) {
-        Event newEvent = new Event();
-        newEvent.setLimit(50);
-        model.addAttribute("event", newEvent);
+    public String eventsForm() {
         return "/events/form";
     }
 
