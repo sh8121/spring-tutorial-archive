@@ -4,16 +4,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@SessionAttributes("visitTime2")
 public class SampleController {
 
     @GetMapping("/events/form")
@@ -22,6 +20,12 @@ public class SampleController {
         newEvent.setLimit(50);
         model.addAttribute("event", newEvent);
         return "/events/form";
+    }
+
+    @GetMapping("/events/time")
+    public String saveTime(Model model) {
+        model.addAttribute("visitTime2", LocalDateTime.now());
+        return "redirect:/events/list";
     }
 
     @PostMapping("/events")
@@ -34,7 +38,7 @@ public class SampleController {
     }
 
     @GetMapping("/events/list")
-    public String getEvents(Model model, @SessionAttribute LocalDateTime visitTime) {
+    public String getEvents(Model model, @SessionAttribute LocalDateTime visitTime, @SessionAttribute LocalDateTime visitTime2) {
         Event event = new Event();
         event.setName("spring");
         event.setLimit(10);
@@ -45,6 +49,8 @@ public class SampleController {
         model.addAttribute(eventList);
 
         System.out.println(visitTime);
+        System.out.println(visitTime2);
+
 
         return "/events/list";
     }
