@@ -28,6 +28,7 @@ public class SampleController {
             return "/events/form";
         }
         return "redirect:/events/list";
+        //PRG Pattern
     }
 
     @GetMapping("/events/list")
