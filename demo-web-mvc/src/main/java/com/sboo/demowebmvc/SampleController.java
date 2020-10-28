@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,7 +39,7 @@ public class SampleController {
     }
 
     @GetMapping("/events/list")
-    public String getEvents(Model model, @SessionAttribute LocalDateTime visitTime, @SessionAttribute LocalDateTime visitTime2) {
+    public String getEvents(SessionStatus sessionStatus, Model model, @SessionAttribute LocalDateTime visitTime, @SessionAttribute LocalDateTime visitTime2) {
         Event event = new Event();
         event.setName("spring");
         event.setLimit(10);
@@ -48,9 +49,9 @@ public class SampleController {
 
         model.addAttribute(eventList);
 
+        sessionStatus.setComplete();
         System.out.println(visitTime);
         System.out.println(visitTime2);
-
 
         return "/events/list";
     }
