@@ -1,5 +1,6 @@
 package com.sboo.demowebmvc;
 
+import org.apache.tika.Tika;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
@@ -43,14 +44,17 @@ public class FileController {
     }
 
     @GetMapping("/file/{filename}")
-    public ResponseEntity fileDownload(@PathVariable("filename") String fileName) throws IOException {
+    public ResponseEntity<Resource> fileDownload(@PathVariable("filename") String fileName) throws IOException {
         Resource resource = resourceLoader.getResource("classpath:" + fileName);
         File file = resource.getFile();
         String fileLen = file.length() + "";
 
+        Tika tika = new Tika();
+        String mediaType = tika.detect(file);
+
         return ResponseEntity.ok()
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=\"" + resource.getFilename() + "\"")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.IMAGE_JPEG_VALUE)
+                .header(HttpHeaders.CONTENT_TYPE, mediaType)
                 .header(HttpHeaders.CONTENT_LENGTH, fileLen)
                 .body(resource);
     }
