@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+
 @Controller
 public class FileController {
 
@@ -18,9 +21,12 @@ public class FileController {
 
     @PostMapping("/file")
     public String fileUpload(@RequestParam MultipartFile file,
-                             RedirectAttributes attributes) {
-        System.out.println("file name: " + file.getName());
-        System.out.println("file original name: " + file.getOriginalFilename());
+                             RedirectAttributes attributes) throws IOException {
+        String fileName = file.getOriginalFilename();
+        File newFile = new File("/Users/sboo/Desktop/Development/test2.txt");
+        newFile.getParentFile().mkdir();
+        file.transferTo(newFile);
+
         String message = file.getOriginalFilename() + " is uploaded";
         attributes.addFlashAttribute("message", message);
         return "redirect:/file";
