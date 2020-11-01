@@ -40,12 +40,11 @@ public class SampleController {
     public String eventFormLimitSubmit(@Validated @ModelAttribute Event event,
                                        BindingResult bindingResult,
                                        SessionStatus sessionStatus,
-                                       Model model) {
+                                       RedirectAttributes attributes) {
         if(bindingResult.hasErrors())
             return "/events/form-limit";
         sessionStatus.setComplete();
-        model.addAttribute("name", event.getName());
-        model.addAttribute("limit", event.getLimit());
+        attributes.addFlashAttribute("newEvent", event);
         return "redirect:/events/list";
     }
 
