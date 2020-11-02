@@ -1,6 +1,9 @@
 package com.sboo.demowebmvc;
 
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -9,13 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-@RestController
+@Controller
 @RequestMapping("/api/events")
 public class EventApi {
 
     @PostMapping
-    public Event createEvent(HttpEntity<Event> request) {
-        System.out.println(request.getHeaders());
-        return request.getBody();
+    public ResponseEntity<Event> createEvent(@RequestBody @Valid Event event, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return ResponseEntity.badRequest().build();
+        }
+        return new ResponseEntity<Event>(event, HttpStatus.CREATED);
     }
 }
