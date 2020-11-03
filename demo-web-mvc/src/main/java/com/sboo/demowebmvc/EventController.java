@@ -2,6 +2,7 @@ package com.sboo.demowebmvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +19,8 @@ import java.util.List;
 public class EventController {
 
     @ModelAttribute
-    public void categories(Model model) {
-        model.addAttribute("categories", List.of("study", "seminar", "hobby", "social"));
+    public void categories(ModelMap modelMap) {
+        modelMap.addAttribute("categories", List.of("study", "seminar", "hobby", "social"));
     }
 
     @GetMapping("/events/form/name")
