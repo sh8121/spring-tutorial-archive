@@ -19,23 +19,6 @@ import java.util.List;
 @SessionAttributes("event")
 public class EventController {
 
-    @ExceptionHandler({EventException.class, RuntimeException.class})
-    public String eventErrorHandler(RuntimeException ex, Model model) {
-        model.addAttribute("message", "runtime error");
-        return "error";
-    }
-
-    @InitBinder("event")
-    public void initEventBinder(WebDataBinder webDataBinder) {
-        webDataBinder.setDisallowedFields("id");
-        webDataBinder.addValidators(new EventValidator());
-    }
-
-    @ModelAttribute
-    public void categories(ModelMap modelMap) {
-        modelMap.addAttribute("categories", List.of("study", "seminar", "hobby", "social"));
-    }
-
     @GetMapping("/events/form/name")
     public String eventFormName(Model model) {
         throw new EventException();
